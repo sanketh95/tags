@@ -3,5 +3,5 @@ setUpEnv(){
 }
 
 tearDownEnv(){
-    rm -rf $TAGS_HOME
+   rm -rf $TAGS_HOME
 }

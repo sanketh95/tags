@@ -81,28 +81,23 @@ create_tag() {
     fi
 }
 
-delete_tag(){
-    if [ $# -lt 1]; then
+delete_tag() {
+    if [ $# -lt 1 ]; then
         printf "Provide a valid tag name to remove!\n"
         return 1
     fi
 
-    local tag_name=$1;
+    local tag_name=$1
     local tag_dir=$(get_tag_dir $tag_name)
 
-    printf "Are you sure ? (Y/N): "
-    read dec
-    
-    if [ $dec == "Y" ] || [ $dec == "y" ]; then
-        rm -rf $tag_dir
-        local ret=$?
-        if [ $ret -ne 0 ]; then
-            printf "Failed to delete tag $tag_name\n"
-            return 1
-        else
-            printf "Deleted tag $tag_name\n"
-            return 0
-        fi
+    rm -rf $tag_dir
+
+    if [ $? -ne 0 ]; then
+        printf "Failed to delete tag $tag_name\n"
+        return 1
+    else
+        printf "Deleted tag $tag_name\n"
+        return 0
     fi
 }
 
