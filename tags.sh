@@ -114,7 +114,7 @@ tag_file(){
     local link_path="$tag_dir/$filename"
 
     if [ ! -f $file_path ]; then
-        printf "$1 does not exist"
+        printf "$1 does not exist or is not a file"
         return 1;
     fi
 
@@ -125,7 +125,7 @@ tag_file(){
     fi
 
     create_tag $tag_name
-    
+
     ln -s $file_path $link_path
 }
 
@@ -137,7 +137,7 @@ tag_exists() {
 
     local tag_name=$1
     local tag_dir=$(get_tag_dir $tag_name)
-    echo $tag_dir
+
     if [ -d $tag_dir ]; then
         return 1;
     else
@@ -146,7 +146,7 @@ tag_exists() {
 }
 
 create_random_string(){
-   cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32 
+   cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32
 }
 
 search_tag(){
@@ -162,7 +162,7 @@ search_tag(){
 }
 
 list_tags(){
-    additional_search_criteria=$1;
+
     tags_dir=$(get_tag_dir);
 
     ls $tags_dir;
@@ -180,15 +180,15 @@ remove_tag(){
 
     linked_file_name=$(get_linked_file_name $filepath $tag_name)
 
-    rm $linked_file_name 
+    rm $linked_file_name
     ret=$?
 
     if [ $ret -ne 0 ]; then
         printf "Failed to remove tag $tag_name from file $filepath"
-        return 0
+        return 1
     else
         printf "Removed tag $tag_name from file $filepath"
-        return 1
+        return 0
     fi
 }
 
@@ -196,21 +196,23 @@ main() {
     local ret=0
     local cmd=""
 
+    check_and_create_base_folder
+
     if [ -z "$1" ]; then
         printf "Command not specified !\n"
         usage
-        return 1 
+        return 1
     fi
 
     case $1 in
         "add"|"a")
             cmd="tag_file"
         ;;
-        
+
         "remove"|"rm")
             cmd="remove_tag"
         ;;
-       
+
         "addtag"|"at")
              cmd="create_tag"
         ;;
@@ -230,9 +232,7 @@ main() {
             cmd="usage"
         ;;
     esac
-    shift;    
-
-    check_and_create_base_folder
+    shift;
 
     if [ $? -ne 0 ]; then
         return 1
