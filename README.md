@@ -19,7 +19,17 @@ Options:
     list|ls                             - List all tags or list for a file
     search|s <tagname>                  - Search all files with a tag name
 ```
+
+Running tests
+==============
+
+```sh
+cd tests
+./test-*
+```
+
 Todo
 ====
 
-* Add tests
+* Add functionality to search for all tags for a file
+* Add continuous integration
