@@ -20,6 +20,15 @@ Options:
     search|s <tagname>                  - Search all files with a tag name
 ```
 
+Installation
+============
+
+```sh
+git clone https://github.com/sanketh95/tags
+cd tags
+sudo cp tags /usr/local/bin/ # Or whatever path you want to copy it to
+```
+
 Running tests
 ==============
 
