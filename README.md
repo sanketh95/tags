@@ -9,7 +9,7 @@ Usage
 tags is a command-line tool to tag files to create complex structures
 
 Usage:
-    tags.sh <option> <arguments>
+    tags <option> <arguments>
 
 Options:
     add|a <filepath> <tagname>          - Add a new tag to file
