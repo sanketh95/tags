@@ -21,19 +21,19 @@ teardown(){
     ln -s $file1 "$TAGS_HOME/.tags/tag1/link1"
     ln -s $file2 "$TAGS_HOME/.tags/tag1/link2"
 
-    run ../tags.sh search tag1
+    run $TAGS search tag1
     assert_success
     assert_line $file1
     assert_line $file2
 }
 
 @test "cannot search for files with a non-existent tag" {
-    run ../tags.sh search non-existent-tag
+    run $TAGS search non-existent-tag
     assert_failure
 }
 
 @test "Fail on not passing required arguments" {
-    run ../tags.sh search
+    run $TAGS search
     assert_failure
     assert_output "Provide a valid tag name!"
 }

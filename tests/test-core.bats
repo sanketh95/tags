@@ -14,11 +14,11 @@ teardown(){
 }
 
 @test "Tags directory should get created not matter what" {
-    run ../tags.sh
+    run $TAGS
     assert_file_exist "$TAGS_HOME/.tags"
 }
 
 @test "Not passing any arguments should fail" {
-    run ../tags.sh
+    run $TAGS
     assert_failure
 }

@@ -18,7 +18,7 @@ teardown(){
     mkdir "$TAGS_HOME/.tags/tag1"
     mkdir "$TAGS_HOME/.tags/tag2"
 
-    run ../tags.sh ls
+    run $TAGS ls
     assert_success
     assert_line "tag1"
     assert_line "tag2"
@@ -27,7 +27,7 @@ teardown(){
 }
 
 @test "If there are no tags, listing should give empty result" {
-    run ../tags.sh ls
+    run $TAGS ls
 
     assert_output ""
 }

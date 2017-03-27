@@ -15,15 +15,15 @@ teardown(){
 }
 
 @test "Should fail if required arguments are not provided" {
-    run ../tags.sh remove
+    run $TAGS remove
     assert_failure
 
-    run ../tags.sh remove anyfile
+    run $TAGS remove anyfile
     assert_failure
 }
 
 @test "Should file if the file does not exist" {
-    run ../tags.sh remove non-existent-file tag1
+    run $TAGS remove non-existent-file tag1
     assert_failure
 }
 
@@ -31,13 +31,13 @@ teardown(){
     local file=$(mktemp)
     ln -s $file "$TAGS_HOME/.tags/tag1/link"
 
-    run ../tags.sh remove $file non-existent-tag
+    run $TAGS remove $file non-existent-tag
     assert_failure
 }
 
 @test "Should fail if file is not tagged with the given tag" {
     local file=$(mktemp)
-    run ../tags.sh remove $file tag1
+    run $TAGS remove $file tag1
     assert_failure
 }
 
@@ -45,7 +45,7 @@ teardown(){
     local file=$(mktemp)
     ln -s $file "$TAGS_HOME/.tags/tag1/link"
 
-    run ../tags.sh remove $file tag1
+    run $TAGS remove $file tag1
     assert_success
 
     run ls "$TAGS_HOME/.tags/tag1"
@@ -59,7 +59,7 @@ teardown(){
     ln -s $file1 "$TAGS_HOME/.tags/tag1/link1"
     ln -s $file2 "$TAGS_HOME/.tags/tag1/link2"
 
-    run ../tags.sh remove $file1 tag1
+    run $TAGS remove $file1 tag1
     assert_success
 
     run ls "$TAGS_HOME/.tags/tag1"

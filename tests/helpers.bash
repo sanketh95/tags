@@ -1,6 +1,7 @@
 setUpEnv(){
     export TAGS_HOME=$(mktemp -d)
     export TMPDIR=$(mktemp -d)
+    export TAGS="../tags"
 }
 
 tearDownEnv(){

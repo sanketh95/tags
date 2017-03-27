@@ -19,13 +19,13 @@ teardown(){
     assert_success
 
     assert_file_exist "$TAGS_HOME/.tags/tag1"
-    run ../tags.sh removetag tag1
+    run $TAGS removetag tag1
 
     assert_success
     assert_file_not_exist "$TAGS_HOME/.tags/tag1"
 }
 
 @test "Not passing tag name should return failure status" {
-    run ../tags.sh removetag
+    run $TAGS removetag
     assert_failure
 }

@@ -15,15 +15,15 @@ teardown(){
 }
 
 @test "Not passing required arguments should fail" {
-    run ../test.sh add
+    run $TAGS add
     assert_failure
 
-    run ../test.sh add tempfile
+    run $TAGS add tempfile
     assert_failure
 }
 
 @test "Trying to tag a non-existent file should fail" {
-    run ../test.sh add non-existent-file tag1
+    run $TAGS add non-existent-file tag1
     assert_failure
 
     run ls "$TAGS_HOME/.tags/tag1"
@@ -32,7 +32,7 @@ teardown(){
 
 @test "Trying to tag a directory should fail" {
     local tmp_dir=$(mktemp -d)
-    run ../test.sh add tmp_dir tag1
+    run $TAGS add tmp_dir tag1
     assert_failure
 
     run ls "$TAGS_HOME/.tags/tag1"
@@ -42,7 +42,7 @@ teardown(){
 @test "Trying to tag a file with non-existent tag should create the tag" {
     local tf=$(mktemp)
 
-    run ../tags.sh add $tf tag2
+    run $TAGS add $tf tag2
     assert_success
 
     assert_file_exist "$TAGS_HOME/.tags/tag2"
@@ -51,7 +51,7 @@ teardown(){
 @test "Trying to tag a file with non-existent tag should tag file after tag creation" {
     local tf=$(mktemp)
 
-    run ../tags.sh add $tf tag2
+    run $TAGS add $tf tag2
     assert_success
 
     run ls -l "$TAGS_HOME/.tags/tag2/"
@@ -61,7 +61,7 @@ teardown(){
 @test "Tagging a file should work" {
     local tf=$(mktemp)
 
-    run ../tags.sh add $tf tag1
+    run $TAGS add $tf tag1
     assert_success
 
     run ls -l "$TAGS_HOME/.tags/tag1/"
@@ -72,7 +72,7 @@ teardown(){
     local tf=$(mktemp)
     ln -s $tf "$TAGS_HOME/.tags/tag1/something"
 
-    run ../tags.sh add $tf tag1
+    run $TAGS add $tf tag1
     assert_success
 
     nl=$(ls "$TAGS_HOME/.tags/tag1" | wc -l)
